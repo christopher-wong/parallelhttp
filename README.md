@@ -26,7 +26,7 @@ for i := 1; i < reqCount; i++ {
     pc.QueueRequest(req)
 }
 
-// get the requests back
+// get the requests back from the results channel
 for r := 1; r < reqCount; r++ {
     result := <-results
 
