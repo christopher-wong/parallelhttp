@@ -1,0 +1,32 @@
+# parallelhttp
+
+This is a basic package that helps abstract away the details of parallelizing
+http requests using channels and goroutines.
+
+## Example usage
+
+This example is also implemented in `TestQueueRequest`
+
+```golang
+// create a new parallelhttp client and set the max number of workers
+pc := New(&http.Client{}, 10)
+// grab the results channel that the executed responses will be returned on
+results := pc.GetResultsChan()
+
+// queue some requests
+reqCount := 10
+for i := 1; i < reqCount; i++ {
+    endpoint := fmt.Sprintf("https://jsonplaceholder.typicode.com/todos/%d", i)
+
+    req, _ := http.NewRequest("GET", endpoint, nil)
+    pc.QueueRequest(req)
+}
+
+// get the requests back
+for r := 1; r < reqCount; r++ {
+    result := <-results
+
+    fmt.Printf("retrieved \t %s \t %d\n", result.ID, result.Response.StatusCode)
+}
+```
+
