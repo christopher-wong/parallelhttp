@@ -5,6 +5,10 @@ http requests using channels and goroutines.
 
 ## Example usage
 
+```golang
+import github.com/christopher-wong/parallelhttp
+```
+
 This example is also implemented in `TestQueueRequest`
 
 ```golang
@@ -30,3 +34,8 @@ for r := 1; r < reqCount; r++ {
 }
 ```
 
+## TODO
+
+- [ ] implement rate limiting on top of workers
+- [ ] find some way of abstracting the channels even further
+- [ ] allow usage of alternative http clients like [go-retryablehttp](https://github.com/hashicorp/go-retryablehttp) (generics?)
